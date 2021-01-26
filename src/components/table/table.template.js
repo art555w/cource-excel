@@ -4,24 +4,30 @@ const CODES = {
 	Z: 90
 }
 
-function createRow(content, rowInfo = '') {
+function createRow(content, rowInfo = '', index) {
 	return `
-		<div class="row">
-			<div class="row-info">${rowInfo}</div>
-			<div class="row-data">${content}</div>
+		<div class="row" data-type="resizable">
+			<div class="row-info" data-index="${index}" onselectstart="return false" onmousedown="return false">
+				${rowInfo}
+				${rowInfo ? '<div class="row-resize resize" data-resize="row"></div>' : ''}
+			</div>
+			<div class="row-data"  data-resize="cell">${content}</div>
 		</div>
 	`
 }
 
-function toColumn(content) {
+function toColumn(content, index) {
 	return `
-		<div class="column">${content}</div>
+		<div class="column" data-type="resizable" data-index="${index}" onselectstart="return false" onmousedown="return false">
+			${content}
+			<div class="col-resize resize" data-resize="col"></div>
+		</div>
 	`
 }
 
-function toCell() {
+function toCell(_, index) {
 	return `
-		<div class="cell" contenteditable></div>
+		<div class="cell" data-index="${index}" contenteditable></div>
 	`
 }
 
@@ -48,7 +54,7 @@ export function createTable(rowsCount = 15) {
 
 
 	for (let i = 0; i < rowsCount; i++) {
-		rows.push(createRow(cell, i + 1))
+		rows.push(createRow(cell, i + 1, i))
 	}
 	return rows.join('')
 }

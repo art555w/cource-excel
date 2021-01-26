@@ -15,7 +15,9 @@
 		"comma-dangle": "off",
 		"eol-last": "off",
 		"arrow-parens": "off",
-		"operator-linebreak": "off"
+		"operator-linebreak": "off",
+		"max-len": "off",
+		"no-undef": "off"
 	},
 	"extends": [
 		"eslint:recommended",
